@@ -142,9 +142,9 @@ document.addEventListener("DOMContentLoaded", () =>{
 
   // フレーム描画・変更
   const frameList = [
-    "img/frame_X.png",
-    "img/frame_Y.png",
-    "img/frame_C.png"
+    "frame_X.png",
+    "frame_Y.png",
+    "frame_C.png"
   ];
   const frame = new Array();
   for(let i = 0 ; i < frameList.length ; i++){
