@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <link rel="stylesheet" type="text/css" href="./index.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Kaisei+HarunoUmi&family=Zen+Kurenaido&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Kaisei+HarunoUmi&family=Kaisei+Opti:wght@500&family=Zen+Kurenaido&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Kaisei+HarunoUmi:wght@700&display=swap" rel="stylesheet">
+   <script src="script/jquery-3.7.1.min.js"></script>
+   <script src="script.js"></script>
+  </head>
+  <body>
+
+    <div class = "main">
+
+      <div class = "editter">
+        <canvas id = "cancanvas" width = 572 height = 800></canvas>
+      </div>
+
+
+      <div class = "editter">
+        <label>
+          フレーム色　：
+          <select id="frame">
+            <option value="-1">フレーム色▼</option>
+            <option value="0">フレーム1</option>
+            <option value="1">フレーム2</option>
+            <option value="2">フレーム3</option>
+          </select>
+        </label>
+        <br>
+
+
+        画像　　　　：
+        <label>
+          <input type="file" id="selectFile" accept=".png , .jpeg , .jpg">
+        </label>
+        <br>
+        画像サイズ　：
+        <label>
+          <input type="range" id="imageScale" value = "50" min="10" max="100" step="1">
+        </label>
+          x<span id = "scaleValue"></span>
+        <br>
+
+        <label>名前　　　　：
+          <input id = "inputName" class = "inputSmall" type="text">
+        </label>
+        <br>
+        コスト　　　：
+        <label>
+         <input id = "inputCost" class = "inputRange" type="number" value="2" min="1" max="10"></input>
+        </label>
+        <br>
+        <!--- カテゴリ -->
+        カテゴリ　　：
+        <select id="mainLabel">
+          <option value="-1">カテゴリ</option>
+          <option value="0">コトブキヤ系</option>
+          <option value="1">バンダイ系</option>
+          <option value="2">その他</option>
+        </select>
+        <br>
+        　　　　　　 　<select id = "subLabel" multiple size="6">
+        </select>
+        <br>
+        <label>スキル名　　：
+          <input id = "inputCode" class = "inputSmall" type="text">
+        </label>
+        <br>
+        効果　　　　：
+        <label>
+         <textarea id = "inputText" class = "inputText"></textarea>
+        </label>
+        <br>
+        ステータス　：
+        <label>
+         <input id = "inputShot" class = "inputShot" type="number" value="100"></input>
+        </label>
+        <br>
+
+
+
+        <br><br>
+
+        <div class = "editter-sub">
+          ▼未実装<br>
+          <button id = "download">出力！</button>
+          <a id = "downloadlink"></a>
+        </div>
+
+      </div>
+
+      <br>
+
+      <div class = "other">
+        <h2>お試し部分</h2>
+        <div class = "tst">
+          吾輩は猫である。名前はまだ無い。どこで生まれたかとんと見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+
+  </body>
+</html>
