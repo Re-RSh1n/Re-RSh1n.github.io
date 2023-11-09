@@ -1,0 +1,53 @@
+
+.main{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.editter{
+  width : 100%;
+}
+
+@media(min-width: 1024px){
+  .editter{
+    width: 50%;
+  }
+}
+
+
+
+.other{
+  width: 100%;
+}
+
+.tst{
+  width: 50%;
+  column-count: 2;
+}
+
+h2{
+  border-bottom: 3px dotted #000;
+}
+
+
+canvas{
+  border: solid 1px #000;
+}
+
+select{
+  width: 150px;
+}
+input.inputSmall{
+  width: 40%;
+}
+input.inputText{
+  width:40%;
+  height:5em;
+}
+input.inputRange{
+  width: 15%;
+}
+textarea{
+  width: 40%;
+  height: 6em;
+}
