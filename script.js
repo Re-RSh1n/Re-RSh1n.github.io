@@ -144,7 +144,6 @@ document.addEventListener("DOMContentLoaded", () =>{
   const frameList = [
     "frame_X.png",
     "frame_Y.png",
-    "frame_C.png"
   ];
   const frame = new Array();
   for(let i = 0 ; i < frameList.length ; i++){
