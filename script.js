@@ -18,83 +18,104 @@ document.addEventListener("DOMContentLoaded", () =>{
   const img    = new Image();
   img.crossOrigin = "anonymous";
 
-  let imageScale = 0.5;
-  document.getElementById("scaleValue").innerHTML = imageScale;
-
   const location = {  //テキストの描画位置
-    nameX: 298,
-    nameY: 62,
-    costX: 47,
+    nameX: 306,
+    nameY: 65,
+    costX: 53,
     costY: 71,
     skillX: 55,
-    skillY: 610,
+    skillY: 605,
     textX: 57,
     textY: 630,
     categoryX: 55,
-    categoryY: 538,
-    shotX: 468,
-    shotY: 770,
-    infightX: 500,
-    infightY: 720
+    categoryY: 552,
+    statX: 475,
+    statY: 764
   };
 
+  let textColor = "#000000";
+  let textColorLine = "#000000";
+  let grad = ctx.createLinearGradient(50,0,150,0);
   let labelText = new Array;
-  let affterText = ""
+  let affterText = "";
+  let imageScale = 0.5;
+  document.getElementById("scaleValue").innerHTML = imageScale;
+
+
 
   // 描画・更新
   const redraw = () => {
     ctx.clearRect(0, 0, canvas.width , canvas.height);
-    //ctx.drawImage(img , position.moveX , position.moveY);
 
     ctx.drawImage(img, -position.moveX , -position.moveY , canvas.width / imageScale, canvas.height / imageScale, 0, 0, canvas.width, canvas.height);
 
     if(frameId.value != -1)
       ctx.drawImage(frame[frameId.value], 0 , 0 , 572 , 800 );
 
-    // 名前
-    ctx.font = "32px Kaisei Opti";
-    ctx.fillStyle= "#000000";
-    ctx.textAlign = "center";
-    ctx.fillText(inputName.value , location.nameX , location.nameY , 390);
+    // テキスト反映処理
+    // もっと綺麗な処理ができそうというのは分かる（分かってない）
 
     // コスト
-    ctx.font = "54px Kaisei HarunoUmi";
-    ctx.fillStyle= "#ffffff";
+    ctx.font = "50px Kaisei HarunoUmi";
+    ctx.fillStyle = "#ffffff";
     ctx.textAlign = "center";
     ctx.fillText(inputCost.value , location.costX , location.costY);
-    ctx.textAlign = "left";
-    //ctx.strokeStyle= "#ffff00";
-    //ctx.strokeText(inputCost.value , location.costX , location.costY);
+
+    // ステータス
+    ctx.font = "32px Kaisei Opti";
+    ctx.fillText(inputShot.value , location.statX , location.statY);
+
+
+
+    // 名前
+    ctx.font = "32px Kaisei Opti";
+    ctx.textAlign = "center";
+    ctx.strokeStyle= textColorLine;
+    ctx.lineWidth= 4;
+    ctx.strokeText(inputName.value , location.nameX , location.nameY , 438);
+    ctx.fillStyle= textColor;
+    ctx.fillText(inputName.value , location.nameX , location.nameY , 438);
 
     // スキル名
     ctx.font = "24px Kaisei Opti";
     ctx.textAlign = "left";
-    ctx.fillStyle= "#ff2244";
+    ctx.strokeStyle = grad;
+    ctx.lineWidth= 6;
+    ctx.strokeText(inputCode.value , location.skillX , location.skillY );
+    ctx.fillStyle= "#FFbbbb";
     ctx.fillText(inputCode.value , location.skillX , location.skillY);
-
-    // ステータス
-    ctx.font = "32px Kaisei Opti";
-    ctx.textAlign = "center";
-    ctx.fillStyle= "#ffffff";
-    ctx.fillText(inputShot.value , location.shotX , location.shotY);
 
     // テキスト
     for(i=0; i<affterText.length; i++){   //改行処理
-      ctx.font = "16px Kaisei Opti";
+      ctx.font = "16px Noto Sans";
       ctx.textAlign = "left";
-      ctx.fillStyle= "#000000";
+
+      ctx.strokeStyle= textColorLine;
+      ctx.lineWidth= 3;
+      ctx.strokeText(affterText[i], location.textX , location.textY + i*20);
+
+      ctx.fillStyle= textColor;
       ctx.fillText(affterText[i], location.textX , location.textY + i*20);
     }
 
     // カテゴリ
     ctx.font = "20px Kaisei Opti";
-    ctx.font.bold();
     ctx.textAlign = "left";
-    ctx.fillStyle= "#000000";
-    if(labelText.value != undefined)
+    ctx.fillStyle = textColor;
+    ctx.lineWidth= 4;
+    ctx.strokeStyle = textColorLine
+    if(labelText.value != undefined){
+      ctx.strokeText(labelText.value , location.categoryX , location.categoryY);
       ctx.fillText(labelText.value , location.categoryX , location.categoryY);
-
+      if(inputCtg.value != ""){
+        console.log( ctx.measureText(labelText.value));
+        ctx.strokeText("#"+inputCtg.value , location.categoryX + ctx.measureText(labelText.value).width +10 , location.categoryY);
+        ctx.fillText("#"+inputCtg.value , location.categoryX + ctx.measureText(labelText.value).width +10 , location.categoryY);
+      }
+    }
   };
+
+
 
 
   // --- 入力処理
@@ -110,9 +131,21 @@ document.addEventListener("DOMContentLoaded", () =>{
     redraw();
   })
 
+  // 追加カテゴリ
+  let inputCtg = document.getElementById("inputSubCtg");
+  inputCtg.addEventListener("input" , function(evt){
+    redraw();
+  })
+
   // スキル名
   let inputCode = document.getElementById("inputCode");
   inputCode.addEventListener("input" , function(evt){
+    console.log(inputCode.value.length);
+
+    grad = ctx.createLinearGradient(50,0,inputCode.value.length*50,0);
+    grad.addColorStop(0,"#dd3333");
+    grad.addColorStop(1,"#ff6666");
+
     redraw();
   })
 
@@ -126,7 +159,6 @@ document.addEventListener("DOMContentLoaded", () =>{
   // ステータス
   let inputShot = document.getElementById("inputShot");
   inputShot.addEventListener("input" , function(evt){
-
     redraw();
   })
 
@@ -142,9 +174,18 @@ document.addEventListener("DOMContentLoaded", () =>{
 
   // フレーム描画・変更
   const frameList = [
-    "frame_X.png",
-    "frame_Y.png"
+    "img/frame_1.png",
+    "img/frame_2.png",
+    "img/frame_3.png",
+    "img/frame_4.png",
+    "img/frame_5.png",
+    "img/frame_6.png",
+    "img/frame_7.png",
+    "img/frame_8.png",
+    "img/frame_9.png",
+    "img/frame_10.png"
   ];
+
   const frame = new Array();
   for(let i = 0 ; i < frameList.length ; i++){
     frm = new Image();
@@ -155,6 +196,15 @@ document.addEventListener("DOMContentLoaded", () =>{
 
   frameId.addEventListener("change" , function(){
     console.log(frameId.value);
+
+    if(frameId.value %2 == 0){
+      textColor = "#000000";
+      textColorLine = "#ffffff";
+    }else{
+      textColor = "#ffffff";
+      textColorLine = "#000000";
+    }
+
     redraw();
   });
 
@@ -224,70 +274,51 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 
 
-  //リストボックスのみなさん
 
-  const choises = [
-    { value: 0 , name: "ぱたーんA"},
-    { value: 1 , name: "ぱたーんB"},
-    { value: 2 , name: "ぱたーんC"},
-  ]
-  const choisesSub1 = [
-    { value: 0 , name: "#FAガール"},
-    { value: 1 , name: "#メガミデバイス"},
-    { value: 2 , name: "#創彩少女庭園"},
-    { value: 3 , name: "#アルカナディア"},
-    { value: 4 , name: "#ヘキサギア"},
-
-  ]
-  const choisesSub2 = [
-    { value: 0 , name: "#30MS"},
-    { value: 1 , name: "#MS少女"},
-    { value: 2 , name: "#Figure-rise Standard"},
-
-  ]
-  const choisesSub3 = [
-    { value: 0 , name: "#チトセリウム"},
-    { value: 1 , name: "#ダークアドヴェント"},
-    { value: 2 , name: "#ギルティプリンセス"},
-    { value: 3 , name: "#デスクトップアーミー"},
-
-    { value: 91 , name: "#ガレージキット"},
-    { value: 99 , name: "#Unknown"},
-
-  ]
 
   //リストボックス変更処理
   let mainList = document.getElementById("mainLabel");
   let subList  = document.getElementById("subLabel");
 
-  mainList.addEventListener("change" , function(){
-    subList.options.length = 0;
+  // typeでフィルターを行う
+  const addList = [
+    { type:"K" , name:"#FAガール"},
+    { type:"K" , name:"#メガミデバイス"},
+    { type:"K" , name:"#創彩少女庭園"},
+    { type:"K" , name:"#アルカナディア"},
+    { type:"K" , name:"#ヘキサギア"},
+    { type:"K" , name:"#メガロマリア"},
+    { type:"B" , name:"#30MS"},
+    { type:"B" , name:"#MS少女"},
+    { type:"B" , name:"#Figure-rise Standard"},
+    { type:"other" , name:"#チトセリウム"},
+    { type:"other" , name:"#ダークアドヴェント"},
+    { type:"other" , name:"#デスクトップアーミー"},
+    { type:"other" , name:"#PLAMAX"},
+    { type:"other" , name:"#MODEROID"},
+    { type:"other" , name:"#VFガール"},
+    { type:"other" , name:"#ガレージキット"},
+    { type:"other" , name:"#フルスクラッチ"},
+    { type:"other" , name:"#Unknown"}
 
-    //ここの処理の仕方やだ
-    if(mainList.options[mainList.selectedIndex].value ==0){
-      for(let i = 0; i < choisesSub1.length; i++){
-        subList.options[i] = new Option(choisesSub1[i].name);
-      }
-    }else if(mainList.options[mainList.selectedIndex].value ==1){
-      for(let i = 0; i < choisesSub2.length; i++){
-        subList.options[i] = new Option(choisesSub2[i].name);
-      }
-    }else if(mainList.options[mainList.selectedIndex].value ==2){
-      for(let i = 0; i < choisesSub3.length; i++){
-        subList.options[i] = new Option(choisesSub3[i].name);
-      }
-    }else{
-        subList.options[0] = null;
-        labelText.value = null;
-        redraw();
+  ];
+  const listIndex = ["K","B","other"];  // html側と紐づけするための配列
+
+  mainList.addEventListener("change" , function(){
+    let filterResult = addList.filter(row => row.type === listIndex[mainList.selectedIndex-1]);
+    subList.length = 0;
+
+    for(let i=0 ; i<filterResult.length; i++){
+      subList.options[i] = new Option(filterResult[i].name);
     }
   });
 
   subList.addEventListener("change" , function(){
     labelText.value = subList[subList.selectedIndex].value;
+    subLabelSize = ctx.measureText(labelText.value).width + 10;
     console.log(labelText.value);
     redraw();
-  })
+  });
 });
 
 
@@ -303,11 +334,11 @@ function textSplit(text){
     size += ctx.measureText(c).width;
     outText += c;
     if(size > textMax){
-      outText += "n";
+      outText += "\n";
       size = 0;
     }
   }
-  outText = outText.split("n");
+  outText = outText.split("\n");
 
   return outText;
 

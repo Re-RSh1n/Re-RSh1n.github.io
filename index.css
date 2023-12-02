@@ -1,34 +1,123 @@
+/*
+ *#D9CEBC
+ *#E6D4BE
+ *#F2F2F2
+ *#BF9B7A
+ *#8C583A
+ */
+
+body{
+    background-color: #F2F2F2;
+}
 
 .main{
   display: flex;
   flex-wrap: wrap;
+  margin:  5px;
+
 }
+
+.imageArea{
+  background-color: #D0D0D0;
+  border-radius: 20px;
+  margin:  5px;
+  padding: 10px;
+  width:   610px;
+text-align: center;
+}
+/*
+.imageArea::after,
+.imageArea::before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    position: absolute;
+    width: 0.75em;
+}
+.imageArea::before {
+    border-bottom: 1px solid;
+    border-left: 1px solid;
+    border-top: 1px solid;
+    bottom: 0;
+    left: 0;
+}
+.imageArea::after {
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+    border-top: 1px solid;
+    bottom: 0;
+    right: 0;
+}*/
 
 .editter{
-  width : 100%;
+  background-color: #D6D6D6;
+  border-radius: 20px;
+  margin: 5px;
+  padding: 5px;
+  width: 45%;
+  position: relative;
 }
+/*
+.editter::after,
+.editter::before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    position: absolute;
+    width: 0.75em;
+}
+.editter::before {
+    border-bottom: 1px solid;
+    border-left: 1px solid;
+    border-top: 1px solid;
+    bottom: 0;
+    left: 0;
+}
+.editter::after {
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+    border-top: 1px solid;
+    bottom: 0;
+    right: 0;
+}
+*/
 
-@media(min-width: 1024px){
+/*横幅1024px以下の場合*/
+@media(max-width: 1024px){
   .editter{
-    width: 50%;
+    width: 100%;
+
   }
 }
 
 
 
 .other{
-  width: 100%;
+  margin:0 auto;
+  width: 80%;
 }
 
-.tst{
-  width: 50%;
-  column-count: 2;
+.exp{
+  margin: 2px;
+  padding: 2px;
 }
+
+
+.msg{
+  width: 30%;
+}
+
+.inputtst{
+  width: 65%;
+}
+
 
 h2{
-  border-bottom: 3px dotted #000;
+  border-bottom: 4px dotted #000;
 }
-
+h3{
+  border-bottom: 2px dotted #000;
+}
 
 canvas{
   border: solid 1px #000;
@@ -38,16 +127,16 @@ select{
   width: 150px;
 }
 input.inputSmall{
-  width: 40%;
+  width: 70%;
+}
+input.inputSugoiSmall{
+  width: 150px;
 }
 input.inputText{
-  width:40%;
+  width:70%;
   height:5em;
 }
-input.inputRange{
-  width: 15%;
-}
 textarea{
-  width: 40%;
+  width: 70%;
   height: 6em;
 }

@@ -1,59 +1,66 @@
 <!DOCTYPE html>
 <html>
   <head>
+   <title>うちの子カードメーカー（仮）</title>
    <link rel="stylesheet" type="text/css" href="./index.css">
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Kaisei+HarunoUmi&family=Zen+Kurenaido&display=swap" rel="stylesheet">
    <link href="https://fonts.googleapis.com/css2?family=Kaisei+HarunoUmi&family=Kaisei+Opti:wght@500&family=Zen+Kurenaido&display=swap" rel="stylesheet">
    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Kaisei+HarunoUmi:wght@700&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Kaisei+HarunoUmi:wght@700&family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
    <script src="script.js"></script>
   </head>
   <body>
 
     <div class = "main">
-
-      <div class = "editter">
+      <div class = "imageArea">
         <canvas id = "cancanvas" width = 572 height = 800></canvas>
       </div>
-
-
       <div class = "editter">
         <label>
           フレーム色　：
           <select id="frame">
             <option value="-1">フレーム色▼</option>
-            <option value="0">フレーム1</option>
-            <option value="1">フレーム2</option>
-            <option value="2">フレーム3</option>
+            <option value="0">【白】× 黒</option>
+            <option value="1">【白】× 白</option>
+            <option value="2">【黒】× 黒</option>
+            <option value="3">【黒】× 白</option>
+            <option value="4">【青】× 黒</option>
+            <option value="5">【青】× 白</option>
+            <option value="6">【赤】× 黒</option>
+            <option value="7">【赤】× 白</option>
+            <option value="8">【緑】× 黒</option>
+            <option value="9">【緑】× 白</option>
           </select>
         </label>
         <br>
 
-
+        <span>
         画像　　　　：
-        <label>
-          <input type="file" id="selectFile" accept=".png , .jpeg , .jpg">
-        </label>
+          <input type="file" id="selectFile" accept=".jpg , .jpeg , .png">
+        </span>
         <br>
         画像サイズ　：
-        <label>
+        <span>
           <input type="range" id="imageScale" value = "50" min="10" max="100" step="1">
-        </label>
+        </span>
           x<span id = "scaleValue"></span>
         <br>
 
-        <label>名前　　　　：
+        <span>名前　　　　：
           <input id = "inputName" class = "inputSmall" type="text">
-        </label>
+        </span>
         <br>
+        <span>
         コスト　　　：
-        <label>
          <input id = "inputCost" class = "inputRange" type="number" value="2" min="1" max="10"></input>
-        </label>
+        </span>
         <br>
         <!--- カテゴリ -->
+
+        <span>
         カテゴリ　　：
+
         <select id="mainLabel">
           <option value="-1">カテゴリ</option>
           <option value="0">コトブキヤ系</option>
@@ -61,48 +68,92 @@
           <option value="2">その他</option>
         </select>
         <br>
-        　　　　　　 　<select id = "subLabel" multiple size="6">
-        </select>
+        　　　　　　　 <select id = "subLabel" multiple size="6"></select><br>
+
+        追加カテゴリ：
+        <input id = "inputSubCtg" class = "inputSugoiSmall" type="text"><br></span>
         <br>
-        <label>スキル名　　：
+        <span>スキル名　　：
           <input id = "inputCode" class = "inputSmall" type="text">
-        </label>
+        </span>
         <br>
         効果　　　　：
-        <label>
+        <span>
          <textarea id = "inputText" class = "inputText"></textarea>
-        </label>
+        </span>
         <br>
         ステータス　：
-        <label>
-         <input id = "inputShot" class = "inputShot" type="number" value="100"></input>
-        </label>
+        <span>
+         <input id = "inputShot" class = "inputShot" type="number" value="1000" step="100"></input>
+        </span>
         <br>
 
-
-
-        <br><br>
-
-        <div class = "editter-sub">
-          ▼未実装<br>
-          <button id = "download">出力！</button>
+        <br>
+        <span>
+          <button id = "download">画像として保存</button>
           <a id = "downloadlink"></a>
-        </div>
+        </span>
 
       </div>
 
       <br>
+    </div>
+
+    <!-- 説明書きするところ -->
 
       <div class = "other">
-        <h2>お試し部分</h2>
-        <div class = "tst">
-          吾輩は猫である。名前はまだ無い。どこで生まれたかとんと見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。
+        <h2>これは何</h2>
+        特にルールが決まって無いカードゲームっぽい画像を作るやつです。マスターのサイフポイントを0にしたりシールドを割ったりするんじゃないでしょうか。<br>
+        いわゆる美プラをベースにした利用を想定していますが、画像が読み込めれば使えます。<br>
+        サーバーを介した処理は行っていないので、作った画像を勝手に収集したりはしません。<br>
+        <h2>使い方</h2>
+        <div>
+          お手元の画像を読み込ませて色々調整してください。画像をドラッグすることで位置調整できます。<br>
+          Googleフォントを使用しているので、このページを開いた直後だとフォントが読み込まれていないかもしれません。編集中に読み込まれて置き換わります。<br>
+          <div  class = "exp">
+            <h3>フレーム色</h3>
+            白黒青赤緑の5色です。文字の背景部分は白か黒で選べるので画像の色合いに合わせて選んでください。<br>
+            白青コントロールみたいなのが好きです。<br>
+          </div>
+          <div  class = "exp">
+            <h3>名前</h3>
+            長めのお名前を入れた場合自動調整されます。ユベルも安心。<br>
+          </div>
+          <div  class = "exp">
+            <h3>コスト</h3>
+            1～10です。何で支払うんでしょうか。<br>
+          </div>
+          <div  class = "exp">
+            <h3>カテゴリ</h3>
+            メーカーからシリーズを選べるように作ったところ、よくよく考えると複数シリーズ出てる方が少ないことに気づきました。<br>
+            追加カテゴリはお好きなように設定できますが、長いとはみ出るかも。<br>
+          </div>
+          <div  class = "exp">
+            <h3>スキル名</h3>
+            口に出したくなるスキル名を入れましょう。<br>
+            実際のところよく口に出されていた効果名って「ブラックローズ・ガイル」あたりなんじゃなかろうか。（遠い記憶）（最近のは知らない）<br>
+          </div>
+          <div  class = "exp">
+            <h3>効果</h3>
+            特殊効果を設定できます。レスキューラビットが好きです。<br>
+            美プラ勢的には「破壊」という単語はちょっと不穏な気がする。<br>
+            改行は自動ですが、テキストボックス内で改行すると反映されます。
+          </div>
+          <div  class = "exp">
+            <h3>ステータス</h3>
+            攻撃力とかパワーとかそんな感じのやつ。<br>
+            本当は「射撃」「格闘」とかに分けるつもりだったんですが枠を作るのが面倒になったので...<br>
+          </div>
         </div>
+        <h2>雑記</h2>
+        javascriptを触る機会があったので、練習がてら作ったものです。たぶん本職の方が見たら相当汚いはず。<br>
+        この手の妄想はみんな好きだと思うんですが（クソデカ主語）、細かいところを設定したり必要な画像を用意する気力が尽きたのでとりあえず公開しておきました。カード用の画像とかカテゴリごとのアイコンとか用意すればもう少し遊べそうな気はするんですが、そもそものデザインぢからを持っておらず。<br>
+        誰か代わりに作って欲しい（思考停止）
 
       </div>
 
+      制作者：<a href = "https://twitter.com/RSh1n">るーしん</a>
 
-    </div>
 
 
 
