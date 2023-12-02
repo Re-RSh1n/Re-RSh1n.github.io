@@ -8,6 +8,7 @@
  */
 
 const textMax = 555;
+let flavorSplits = 0;
 
 //DOM読み込み
 document.addEventListener("DOMContentLoaded", () =>{
@@ -30,7 +31,9 @@ document.addEventListener("DOMContentLoaded", () =>{
     categoryX: 55,
     categoryY: 552,
     statX: 475,
-    statY: 764
+    statY: 764,
+    flavorX:55,
+    flavorY:750
   };
 
   let textColor = "#000000";
@@ -38,6 +41,8 @@ document.addEventListener("DOMContentLoaded", () =>{
   let grad = ctx.createLinearGradient(50,0,150,0);
   let labelText = new Array;
   let affterText = "";
+  let affterFlavor = "";
+
   let imageScale = 0.5;
   document.getElementById("scaleValue").innerHTML = imageScale;
 
@@ -64,8 +69,6 @@ document.addEventListener("DOMContentLoaded", () =>{
     // ステータス
     ctx.font = "32px Kaisei Opti";
     ctx.fillText(inputShot.value , location.statX , location.statY);
-
-
 
     // 名前
     ctx.font = "32px Kaisei Opti";
@@ -97,6 +100,17 @@ document.addEventListener("DOMContentLoaded", () =>{
       ctx.fillStyle= textColor;
       ctx.fillText(affterText[i], location.textX , location.textY + i*20);
     }
+
+    // フレーバー
+    for(i=0; i<affterFlavor.length; i++){   //改行処理
+      ctx.font = "12px Klee One";
+      ctx.textAlign = "left";
+
+      ctx.fillStyle= "#888888";
+      ctx.fillText(affterFlavor[i], location.flavorX , location.flavorY - flavorSplits*10 + i*10);
+    }
+
+
 
     // カテゴリ
     ctx.font = "20px Kaisei Opti";
@@ -140,8 +154,7 @@ document.addEventListener("DOMContentLoaded", () =>{
   // スキル名
   let inputCode = document.getElementById("inputCode");
   inputCode.addEventListener("input" , function(evt){
-    console.log(inputCode.value.length);
-
+    
     grad = ctx.createLinearGradient(50,0,inputCode.value.length*50,0);
     grad.addColorStop(0,"#dd3333");
     grad.addColorStop(1,"#ff6666");
@@ -153,6 +166,14 @@ document.addEventListener("DOMContentLoaded", () =>{
   let inputText = document.getElementById("inputText");
   inputText.addEventListener("input" , function(evt){
     affterText = textSplit(inputText.value);
+    redraw();
+  })
+
+  // フレーバー
+  let inputFlavor = document.getElementById("inputFlavor");
+  inputFlavor.addEventListener("input" , function(evt){
+    flavorSplits = 0;
+    affterFlavor = textSplit(inputFlavor.value);
     redraw();
   })
 
@@ -322,7 +343,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 });
 
 
-// 改行コード挿入用
+// 改行コード挿入用（たぶん分ける必要がない）
 function textSplit(text){
   const canvas = document.getElementById("cancanvas");
   const ctx    = canvas.getContext("2d");
@@ -336,6 +357,7 @@ function textSplit(text){
     if(size > textMax){
       outText += "\n";
       size = 0;
+      flavorSplits++;
     }
   }
   outText = outText.split("\n");
